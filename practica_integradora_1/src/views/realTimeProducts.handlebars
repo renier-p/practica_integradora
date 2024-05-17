@@ -1,48 +1,110 @@
-<div>
-  <h1>RealTimeProducts</h1>
+<div class="container mt-5" style="padding-left: 10px; padding-top:10px">
+  <h1>Productos</h1>
   <section>
-    <h2>Añadir productos</h2>
-    <label for="title">Nombre del producto</label>
-    <input
-      type="text"
-      id="title"
-      placeholder="Ej: Harina, jugo, huevos."
-      required
-    />
-    <label for="description">Descripción del producto</label>
-    <input
-      type="text"
-      id="description"
-      placeholder="Ej: 0000, naranja, colorados."
-      required
-    />
-    <label for="category">Categoría del producto</label>
-    <input
-      type="text"
-      id="category"
-      placeholder="Ej: Almacen, destilados, limpieza."
-      required
-    />
-    <label for="code">Código del producto</label>
-    <input
-      type="text"
-      id="code"
-      placeholder="Alfanumérico de 6 dígitos"
-      required
-    />
-    <label for="price">Precio del producto</label>
-    <input type="text" id="price" placeholder="Precio en AR$" required />
-    <label for="stock">Stock del producto</label>
-    <input type="text" id="stock" placeholder="Stock a ingresar" required />
-    <button onclick="sendDataCreate()">Añadir producto</button>
+    <h2 style="text-decoration:underline">Añadir productos</h2>
+    <form id="addProductForm">
+      <div class="mb-3">
+        <label for="title" class="form-label">Producto:</label>
+        <input
+          style="border-radius: 3px;"
+          type="text"
+          class="form-control"
+          id="title"
+          placeholder="Ej: Camisa"
+          required
+        />
+      </div>
+      <div class="mb-3" style="margin-top: 5px;">
+        <label for="description" class="form-label pt-5">Descripción del
+          producto:</label>
+        <input
+          style="border-radius: 3px;"
+          type="text"
+          class="form-control"
+          id="description"
+          placeholder="Ej: Camisa de Incubus"
+          required
+        />
+      </div>
+      <div class="mb-3" style="margin-top: 5px;">
+        <label for="category" class="form-label">Categoría:</label>
+        <input
+          style="border-radius: 3px;"
+          type="text"
+          class="form-control"
+          id="category"
+          placeholder="Ej: Ropa"
+          required
+        />
+      </div>
+      <div class="mb-3" style="margin-top: 5px;">
+        <label for="code" class="form-label">Código:</label>
+        <input
+          style="border-radius: 3px;"
+          type="text"
+          class="form-control"
+          id="code"
+          placeholder="C01"
+          required
+        />
+      </div>
+      <div class="mb-3" style="margin-top: 5px;">
+        <label for="price" class="form-label">Precio:</label>
+        <input
+          style="border-radius: 3px;"
+          type="text"
+          class="form-control"
+          id="price"
+          placeholder="$1000"
+          required
+        />
+      </div>
+      <div class="mb-3" style="margin-top: 5px;">
+        <label for="stock" class="form-label">Stock:</label>
+        <input
+          style="border-radius: 3px;"
+          type="text"
+          class="form-control"
+          id="stock"
+          placeholder="cantidad"
+          required
+        />
+      </div>
+      <br />
+      <button
+        style="border-radius: 5px; height: 25px; width: 200px"
+        type="button"
+        class="btn btn-primary"
+        onclick="sendDataCreate()"
+      >Añadir producto</button>
+      <br />
+    </form>
   </section>
-  <section>
-    <h2>Eliminar productos</h2>
-    <label for="delete-id">Ingrese el ID del producto a eliminar</label>
-    <input type="text" id="delete-id" required />
-    <button onclick="sendDataDelete()">Eliminar producto</button>
+  <section class="mt-5">
+    <h2 style="text-decoration:underline;">Eliminar productos</h2>
+    <form id="deleteProductForm">
+      <div class="mb-3">
+        <label for="delete-id" class="form-label">Ingrese el ID del producto:</label>
+        <input
+          style="border-radius: 3px; width: 200px;"
+          type="text"
+          class="form-control"
+          id="delete-id"
+          required
+        />
+      </div>
+      <div style="margin-top: 10px">
+        <button
+          style="border-radius:5px; height: 25px; width: 200px"
+          type="button"
+          class="btn btn-primary"
+          onclick="sendDataDelete()"
+        >Eliminar producto</button>
+      </div>
+
+    </form>
   </section>
 </div>
 
-<script src="/node_modules/socket.io/socket.io.js"></script>
-<script src="../public/js/realTime.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/realTimeProducts.js"></script>

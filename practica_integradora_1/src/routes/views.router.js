@@ -13,7 +13,7 @@ viewsRouter.get("/", async (req, res) => {
 });
 
 viewsRouter.get("/realtimeproducts", (req, res) => {
-  res.render("realTime", {});
+  res.render("realTimeProducts", {});
 });
 
 export default viewsRouter;
