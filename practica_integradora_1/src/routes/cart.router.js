@@ -1,9 +1,9 @@
 import { Router } from "express";
 import cartModel from "../dao/models/carts.model.js";
 
-const cartsRouter = Router();
+const cartRouter = Router();
 
-cartsRouter.post("/api/carts/", async (req, res) => {
+cartRouter.post("/api/cart", async (req, res) => {
   try {
     await cartModel.create({ products: [] });
     res.send({ message: "Se creó el carrito correctamente" });
@@ -12,7 +12,7 @@ cartsRouter.post("/api/carts/", async (req, res) => {
   }
 });
 
-cartsRouter.get("/api/carts/:cid", async (req, res) => {
+cartRouter.get("/api/cart/:cid", async (req, res) => {
   try {
     const cartId = req.params.cid;
     const cartContent = await cartModel.findOne({ _id: cartId });
@@ -27,7 +27,7 @@ cartsRouter.get("/api/carts/:cid", async (req, res) => {
   }
 });
 
-cartsRouter.post("/api/carts/:cid/product/:pid", async (req, res) => {
+cartRouter.post("/api/cart/:cid/product/:pid", async (req, res) => {
   try {
     const cartId = req.params.cid;
     const productId = req.params.pid;
@@ -62,4 +62,4 @@ cartsRouter.post("/api/carts/:cid/product/:pid", async (req, res) => {
   }
 });
 
-export default cartsRouter;
+export default cartRouter;
