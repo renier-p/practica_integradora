@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "title": "Camisa de Red Hot Chili Peppers",
+    "description": "Camisa de Red Hot Chili Peppers",
+    "code": "C01",
+    "price": 1000,
+    "status": true,
+    "stock": 10,
+    "category": "ropa"
+  },
+  {
+    "id": 2,
+    "title": "Camisa de Incubus",
+    "description": "Camisa de Incubus",
+    "code": "C02",
+    "price": 1000,
+    "status": true,
+    "stock": 10,
+    "category": "ropa"
+  },
+  {
+    "id": 3,
+    "title": "Camisa de Limp Bizkit",
+    "description": "Camisa de Limp Bizkit",
+    "code": "C03",
+    "price": 1000,
+    "status": true,
+    "stock": 10,
+    "category": "ropa"
+  },
+  {
+    "id": 4,
+    "title": "Camisa de Metallica",
+    "description": "Camisa de Metallica",
+    "code": "C04",
+    "price": 1000,
+    "status": true,
+    "stock": 10,
+    "category": "ropa"
+  },
+  {
+    "id": 5,
+    "title": "Taza de Red Hot Chili Peppers",
+    "description": "Taza de Red Hot Chili Peppers",
+    "code": "T01",
+    "price": 500,
+    "status": true,
+    "stock": "10",
+    "category": "tazas"
+  },
+  {
+    "id": 6,
+    "title": "Taza de Incubus",
+    "description": "Taza de Incubus",
+    "code": "T02",
+    "price": 500,
+    "status": true,
+    "stock": 10,
+    "category": "taza"
+  },
+  {
+    "id": 7,
+    "title": "Taza de Limp Bizkit",
+    "description": "Taza de Limp Bizkit",
+    "code": "T03",
+    "price": 500,
+    "status": true,
+    "stock": 10,
+    "category": "taza"
+  },
+  {
+    "id": 8,
+    "title": "Taza de Metallica",
+    "description": "Taza de Metallica",
+    "code": "T04",
+    "price": 500,
+    "status": true,
+    "stock": 10,
+    "category": "taza"
+  },
+  {
+    "id": 9,
+    "title": "Gorra de Red Hot Chili Peppers",
+    "description": "Gorra de Red Hot Chili Peppers",
+    "code": "G01",
+    "price": 800,
+    "status": true,
+    "stock": 10,
+    "category": "gorra"
+  },
+  {
+    "id": 10,
+    "title": "Gorra de Incubus",
+    "description": "Gorra de Incubus",
+    "code": "G02",
+    "price": 800,
+    "status": true,
+    "stock": 10,
+    "category": "gorra"
+  },
+  {
+    "id": 11,
+    "title": "Gorra de Limp Bizkit",
+    "description": "Gorra de Limp Bizkit",
+    "code": "G03",
+    "price": 800,
+    "status": true,
+    "stock": 10,
+    "category": "gorra"
+  },
+  {
+    "id": 12,
+    "title": "Gorra de Metallica",
+    "description": "Gorra de Metallica",
+    "code": "G04",
+    "price": 800,
+    "status": true,
+    "stock": 10,
+    "category": "gorra"
+  }
+]

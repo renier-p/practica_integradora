@@ -1,12 +1,10 @@
 import { Router } from "express";
-import messageModel from "../models/message.models.js";
-
-//importar modelo de usuario
+import messageModel from "../dao/models/message.model.js";
 
 const router = Router();
 
 router.get("/", (req, res) => {
-  res.send("Hello from users router");
+  res.send("Hello from message router");
 });
 router.post("/", (req, res) => {
   res.send("Post request to the homepage");
