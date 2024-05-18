@@ -109,124 +109,131 @@
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/realTimeProducts.js"></script> }}
 
-<div class="container mt-5" style="padding-left: 10px; padding-top:10px">
-  <h1>Productos</h1>
-  <section>
-    <h2 style="text-decoration:underline">Añadir productos</h2>
-    <form id="addProductForm">
-      <input type="hidden" id="cartId" value="ID_DEL_CARRITO" />
-      <div class="mb-3">
-        <label for="title" class="form-label">Producto:</label>
-        <input
-          style="border-radius: 3px;"
-          type="text"
-          class="form-control"
-          id="title"
-          placeholder="Ej: Camisa"
-          required
-        />
-      </div>
-      <div class="mb-3" style="margin-top: 5px;">
-        <label for="description" class="form-label pt-5">Descripción del
-          producto:</label>
-        <input
-          style="border-radius: 3px;"
-          type="text"
-          class="form-control"
-          id="description"
-          placeholder="Ej: Camisa de Incubus"
-          required
-        />
-      </div>
-      <div class="mb-3" style="margin-top: 5px;">
-        <label for="category" class="form-label">Categoría:</label>
-        <input
-          style="border-radius: 3px;"
-          type="text"
-          class="form-control"
-          id="category"
-          placeholder="Ej: Ropa"
-          required
-        />
-      </div>
-      <div class="mb-3" style="margin-top: 5px;">
-        <label for="code" class="form-label">Código:</label>
-        <input
-          style="border-radius: 3px;"
-          type="text"
-          class="form-control"
-          id="code"
-          placeholder="C01"
-          required
-        />
-      </div>
-      <div class="mb-3" style="margin-top: 5px;">
-        <label for="price" class="form-label">Precio:</label>
-        <input
-          style="border-radius: 3px;"
-          type="text"
-          class="form-control"
-          id="price"
-          placeholder="$1000"
-          required
-        />
-      </div>
-      <div class="mb-3" style="margin-top: 5px;">
-        <label for="stock" class="form-label">Stock:</label>
-        <input
-          style="border-radius: 3px;"
-          type="text"
-          class="form-control"
-          id="stock"
-          placeholder="cantidad"
-          required
-        />
-      </div>
-      <div class="mb-3" style="margin-top: 5px;">
-        <label for="cart-id" class="form-label">ID del Carrito:</label>
-        <input
-          style="border-radius: 3px;"
-          type="text"
-          class="form-control"
-          id="cart-id"
-          placeholder="ID del carrito"
-          required
-        />
-      </div>
-      <br />
-      <button
-        style="border-radius: 5px; height: 25px; width: 200px"
-        type="button"
-        class="btn btn-primary"
-        onclick="sendDataCreate()"
-      >Añadir producto</button>
-      <br />
-    </form>
-  </section>
-  <section class="mt-5">
-    <h2 style="text-decoration:underline;">Eliminar productos</h2>
-    <form id="deleteProductForm">
-      <div class="mb-3">
-        <label for="delete-id" class="form-label">Ingrese el ID del producto:</label>
-        <input
-          style="border-radius: 3px; width: 200px;"
-          type="text"
-          class="form-control"
-          id="delete-id"
-          required
-        />
-      </div>
-      <div style="margin-top: 10px">
-        <button
-          style="border-radius:5px; height: 25px; width: 200px"
-          type="button"
-          class="btn btn-primary"
-          onclick="sendDataDelete()"
-        >Eliminar producto</button>
-      </div>
+<div class="container" style="display: flex; justify-content:center">
 
-    </form>
-  </section>
+  <fieldset
+    style="border: 1px solid #000; padding: 10px; border-radius: 10px; width: 35vw; margin-top: 10px"
+  >
+    <div class="container" style="padding-left: 10px;">
+      <h1>Productos</h1>
+      <section>
+        <h2 style="text-decoration:underline">Añadir productos</h2>
+        <form id="addProductForm">
+          <input type="hidden" id="cartId" value="ID_DEL_CARRITO" />
+          <div class="mb-3">
+            <label for="title" class="form-label">Producto:</label>
+            <input
+              style="border-radius: 3px;"
+              type="text"
+              class="form-control"
+              id="title"
+              placeholder="Ej: Camisa"
+              required
+            />
+          </div>
+          <div class="mb-3" style="margin-top: 5px;">
+            <label for="description" class="form-label pt-5">Descripción del
+              producto:</label>
+            <input
+              style="border-radius: 3px;"
+              type="text"
+              class="form-control"
+              id="description"
+              placeholder="Ej: Camisa de Incubus"
+              required
+            />
+          </div>
+          <div class="mb-3" style="margin-top: 5px;">
+            <label for="category" class="form-label">Categoría:</label>
+            <input
+              style="border-radius: 3px;"
+              type="text"
+              class="form-control"
+              id="category"
+              placeholder="Ej: Ropa"
+              required
+            />
+          </div>
+          <div class="mb-3" style="margin-top: 5px;">
+            <label for="code" class="form-label">Código:</label>
+            <input
+              style="border-radius: 3px;"
+              type="text"
+              class="form-control"
+              id="code"
+              placeholder="C01"
+              required
+            />
+          </div>
+          <div class="mb-3" style="margin-top: 5px;">
+            <label for="price" class="form-label">Precio:</label>
+            <input
+              style="border-radius: 3px;"
+              type="text"
+              class="form-control"
+              id="price"
+              placeholder="$1000"
+              required
+            />
+          </div>
+          <div class="mb-3" style="margin-top: 5px;">
+            <label for="stock" class="form-label">Stock:</label>
+            <input
+              style="border-radius: 3px;"
+              type="text"
+              class="form-control"
+              id="stock"
+              placeholder="cantidad"
+              required
+            />
+          </div>
+          <div class="mb-3" style="margin-top: 5px;">
+            <label for="cart-id" class="form-label">ID del Carrito:</label>
+            <input
+              style="border-radius: 3px;"
+              type="text"
+              class="form-control"
+              id="cart-id"
+              placeholder="ID del carrito"
+              required
+            />
+          </div>
+          <br />
+          <button
+            style="border-radius: 5px; height: 25px; width: 200px"
+            type="button"
+            class="btn btn-primary"
+            onclick="sendDataCreate()"
+          >Añadir producto</button>
+          <br />
+        </form>
+      </section>
+      <section class="mt-5">
+        <h2 style="text-decoration:underline;">Eliminar productos</h2>
+        <form id="deleteProductForm">
+          <div class="mb-3">
+            <label for="delete-id" class="form-label">Ingrese el ID del
+              producto:</label>
+            <input
+              style="border-radius: 3px; width: 200px;"
+              type="text"
+              class="form-control"
+              id="delete-id"
+              required
+            />
+          </div>
+          <div style="margin-top: 10px">
+            <button
+              style="border-radius:5px; height: 25px; width: 200px"
+              type="button"
+              class="btn btn-primary"
+              onclick="sendDataDelete()"
+            >Eliminar producto</button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </fieldset>
 </div>
 
 <script src="/socket.io/socket.io.js"></script>
