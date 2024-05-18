@@ -90,6 +90,8 @@ app.use("/", productsRouter);
 app.use("/", cartsRouter);
 app.use("/", viewsRouter);
 
+let messages = [];
+
 const httpServer = app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
@@ -118,8 +120,8 @@ socketServer.on("connection", (socket) => {
   });
 
   socket.on("clearChat", () => {
-    messages = [];
-    socketServer.emit("messageLogs", messages);
+    messages = []; // Vacía el array de mensajes
+    socketServer.emit("messageLogs", messages); // Envía el array vacío a todos los clientes
   });
 });
 

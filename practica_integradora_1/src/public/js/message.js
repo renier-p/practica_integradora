@@ -4,7 +4,7 @@ const chatBox = document.getElementById("chatBox");
 const clearChatButton = document.getElementById("clearChat");
 
 Swal.fire({
-  title: "Identifícate",
+  title: "Log In",
   input: "text",
   text: "Ingresa tu nombre de usuario",
   inputValidator: (value) => {
