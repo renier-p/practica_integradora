@@ -1,0 +1,22 @@
+<div id="login-section">
+    <div class="login-card">
+        <h2 style="color: white">Iniciar Sesión</h2>
+        <form class="login-form" action="/api/sessions/login" method="POST">
+            <label for="email">Email:</label>
+            <input type="email" name="email" required>
+            <label for="password">Contraseña:</label>
+            <input type="password" name="password" required>
+            <div style="display: flex; justify-content: space-between;">
+                <button type="submit" >Ingresar</button>
+                <a href="/api/sessions/github" style="text-decoration: none;">
+                    <button style="background-color: #ff6600; color: white; padding: 10px 20px; border-radius: 6px; border: 1px solid #ff6600" type="button">Ingresar con GitHub</button>
+                </a>
+            </div>
+        </form>
+        <a style="text-decoration: none;" href="/register">Registrarse</a>
+    </div>
+</div>
+
+
+
+

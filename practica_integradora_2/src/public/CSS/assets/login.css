@@ -1,0 +1,46 @@
+/* Contenedor único para el login */
+#login-section {
+    display: flex;
+    justify-content: center;
+    height: 31vh;
+    /* background-color: rgba(255, 255, 255, 8%); */
+    margin-top: 25px;
+}
+
+#login-section .login-card {
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 36%);
+    text-align: center;
+    text-decoration: none;
+    border-radius: 16px;
+    width: 400px;
+}
+
+#login-section .login-form input[type="email"],
+#login-section .login-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+#login-section .login-form button[type="submit"] {
+    background-color: #ff6600;
+    color: #fff;
+    border: 1px solid #ff6600;
+    padding: 10px 20px;
+    border-radius: 6px;
+}
+
+#login-section .login-form a {
+    color: #000;
+    text-decoration: none;
+}
+
+#login-section .login-card h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    pointer-events: none; 
+    color: #000; 
+}

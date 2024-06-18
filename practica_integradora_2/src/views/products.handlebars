@@ -1,0 +1,270 @@
+
+{{#if user}}
+    <h3 style="margin-top: 25px; color:white;" class="text-center">Bienvenido, 
+        <strong>
+            {{user.first_name}}
+            <a style="background-color: #ff6600; color: white;border: 1px solid #ff6600; border-radius: 6px; margin-left: 10px " href="/profile" class="btn btn-info">Perfil</a>
+        </strong>
+    </h3>
+{{else}}
+    <p style="text-align: center; margin-top:25px; color:white">
+        Inicia sesión para poder comprar!
+        <a style="background-color: #ff6600; color: white;border: 1px solid #ff6600; border-radius: 6px; margin-left: 10px " href="/login" class="btn btn-info">Iniciar</a>
+    </p>
+{{/if}}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-3">
+            <form id="filterForm">
+                <h4>Filtros</h4>
+                <div class="form-group">
+                    <label for="query">Categoría:</label>
+                    <input type="text" id="query" name="query" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="availability">Disponibilidad:</label>
+                    <select id="availability" name="availability" class="form-control">
+                        <option value="">Todas</option>
+                        <option value="available">Disponible</option>
+                        <option value="unavailable">No disponible</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="sort">Ordenar por precio:</label>
+                    <select id="sort" name="sort" class="form-control">
+                        <option value="">Sin orden</option>
+                        <option value="asc">Ascendente</option>
+                        <option value="desc">Descendente</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-9">
+            <div id="productsContainer" class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+               
+            </div>
+            <div id="pagination" class="d-flex justify-content-between mt-4">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modalBody">
+               
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+let products = []
+let cart = null;
+
+document.addEventListener('DOMContentLoaded', async () => {
+    await createCart();
+    fetchProducts();
+});
+
+document.getElementById('filterForm').addEventListener('change', function() {
+    fetchProducts();
+});
+
+async function createCart() {
+    const response = await fetch('/api/carts', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    });
+    cart = await response.json();
+}
+
+async function fetchProducts(page = 1) {
+    const query = document.getElementById('query').value;
+    const availability = document.getElementById('availability').value;
+    const sort = document.getElementById('sort').value;
+    const limit = 6;
+
+    const url = new URL('/api/products', window.location.origin);
+    url.searchParams.set('query', query);
+    url.searchParams.set('availability', availability);
+    url.searchParams.set('sort', sort);
+    url.searchParams.set('page', page);
+    url.searchParams.set('limit', limit);
+
+    const response = await fetch(url);
+    const data = await response.json();
+
+    products = data.payload;
+    renderProducts(products);
+    renderPagination(data);
+}
+
+function renderProducts(products) {
+    const container = document.getElementById('productsContainer');
+    container.innerHTML = '';
+
+    products.forEach(product => {
+        const productCard = `
+            <div class="col mb-4">
+                <div class="card h-100 bg-light">
+                    <div class="card-header text-white"
+                    style="background: rgb(191, 191, 191)">
+                        <i class="bi bi-tag"></i> Código: ${product.code}
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title text-dark" id="Título">${product.title}</h5>
+                        <ul class="list-unstyled">
+                            <li><i class="bi bi-currency-dollar"></i> Precio: $${product.price}</li>
+                            <li><i class="bi bi-check-circle"></i> Status: ${product.status}</li>
+                            <li>
+                                </i><img src="${product.thumbnail}" alt="${product.title}" class="img-fluid mt-2">
+                            </li>
+                        </ul>
+                        <div class="text-center mt-3">
+                            <a id="${product._id}" class="btn text-lg product"
+                            style="background-color: #ff6600; border-color: #ff6600; color: white; margin-top:7px" data-bs-toggle="modal" data-bs-target="#productModal" onclick="showProductDetails('${product._id}')">Ver Detalles</a>
+                            <button class="btn text-lg product"
+                            style="background-color: #ff6600; border-color: #ff6600; color: white; margin-top:7px" data-value="${product.stock}" id="${product._id}">Agregar al carrito</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        container.innerHTML += productCard;
+    });
+
+    document.querySelectorAll('.product').forEach(button => {
+        button.addEventListener('click', addToCart);
+    });
+}
+
+function renderPagination(data) {
+    const pagination = document.getElementById('pagination');
+    pagination.innerHTML = '';
+
+    const prevPage = data.hasPrevPage ? `<a href="#" onclick="fetchProducts(${data.prevPage}); return false;" class="btn btn-primary">Pag Ant</a>` : `<span class="btn btn-secondary disabled">Pag Ant</span>`;
+    const nextPage = data.hasNextPage ? `<a href="#" onclick="fetchProducts(${data.nextPage}); return false;" class="btn btn-primary">Pag Sig</a>` : `<span class="btn btn-secondary disabled">Pag Sig</span>`;
+    
+    pagination.innerHTML = `
+        ${prevPage}
+        <span>Pagina ${data.page} de ${data.totalPages}</span>
+        ${nextPage}
+    `;
+}
+
+async function addToCart(event) {
+    const productId = event.target.id;
+    const stock = Number(event.target.getAttribute('data-value'));
+    const { value: quantity } = await Swal.fire({
+        title: 'Agregar cantidad',
+        input: 'number',
+        inputAttributes: {
+            autocapitalize: 'off'
+        },
+        showCancelButton: true,
+        confirmButtonText: 'Confirmar',
+    });
+
+    if (quantity !== null) {
+        const quantityNumber = Number(quantity);
+        if (quantityNumber > 0 && stock >= quantityNumber) {
+            try {
+                const response = await fetch(`/api/carts/${cart._id}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ "productId": productId, "quantity": quantityNumber }),
+                });
+                if (response.ok) {
+                    Swal.fire({
+                        title: 'Producto agregado',
+                        text: `ID: ${productId} - Cantidad: ${quantityNumber}`,
+                        icon: 'success',
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Error agregando el producto',
+                        icon: 'error',
+                    });
+                }
+            } catch (error) {
+                console.error('Error al agregar el producto al carrito:', error);
+                Swal.fire({
+                    title: 'Error',
+                    text: 'TError agregando el producto',
+                    icon: 'error',
+                });
+            }
+        } else if (quantityNumber <= 0) {
+            Swal.fire({
+                title: 'Tiene que ser mayor a 0',
+                icon: 'warning',
+                confirmButtonColor: '#ff6600',
+                confirmButtonText: "Aceptar"
+            });
+        } else {
+            Swal.fire({
+                title: 'Es mayor que el stock',
+                icon: 'error',
+                confirmButtonColor: '#ff6600',
+                confirmButtonText: "Aceptar"
+            });
+        }
+    }
+}
+
+function showProductDetails(productId) {
+    const product = products.find(product => product._id === productId);
+    if (product) {
+        displayProductDetailsModal(product);
+    } else {
+        console.error("Producto no encontrado en la lista de productos recibidos");
+    }
+}
+
+function displayProductDetailsModal(product) {
+    const modalTitle = document.getElementById('modalTitle');
+    modalTitle.textContent = product.title;
+
+    const modalBody = document.getElementById('modalBody');
+    modalBody.innerHTML = `
+        <p><strong>Descripción:</strong> ${product.description}</p>
+        <p><strong>Precio:</strong> $${product.price}</p>
+        <p><strong>ID:</strong> ${product._id}</p>
+        <p><strong>Categoria:</strong> ${product.category}</p>
+        <p><strong>Stock:</strong> ${product.stock}</p>
+        <img src="${product.thumbnail}" alt="${product.title}" class="img-fluid">
+    `;
+
+    const productModal = new bootstrap.Modal(document.getElementById('productModal'));
+    productModal.show();
+
+    // Cerrar el modal cuando el botón de cerrar es presionado
+    document.querySelector('.btn-close').addEventListener('click', () => {
+        productModal.hide();
+    });
+
+    // Asegurarse de que el modal se oculta correctamente
+    productModal._element.addEventListener('hidden.bs.modal', () => {
+        const modalBackdrop = document.querySelector('.modal-backdrop');
+        if (modalBackdrop) {
+            modalBackdrop.remove();
+        }
+    });
+}
+
+</script>
+<script src="/js/sendCart.js"></script>

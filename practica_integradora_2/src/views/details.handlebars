@@ -1,0 +1,72 @@
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h2>{{products.title}}</h2>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <img src="{{product.thumbnail}}" alt="{{product.title}}" class="img-fluid">
+                </div>
+                <div class="col-md-6">
+                    <p style="text-transform: uppercase;"><strong>{{product.title}}</strong></p>
+                    <p><strong>Descripción:</strong> {{product.description}}</p>
+                    <p><strong>Precio:</strong> ${{product.price}}</p>
+                    <p><strong>Categoría:</strong> {{product.category}}</p>
+                    <p><strong>Stock:</strong> {{product.stock}}</p>
+                    <p><strong>Código:</strong> {{product.code}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let cart
+    async function addToCart(productId, stock) {
+        const { value: quantity } = await Swal.fire({
+            title: 'Agregar cantidad',
+            input: 'number',
+            inputAttributes: {
+                autocapitalize: 'off',
+                min: 1,
+                max: stock
+            },
+            showCancelButton: true,
+            confirmButtonText: 'Confirmar',
+        });
+
+        if (quantity) {
+            try {
+                const response = await fetch(`/api/carts/${cart._id}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ "productId": productId, "quantity": quantity }),
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    Swal.fire({
+                        title: 'Producto agregado',
+                        text: `ID: ${productId} - Cantidad: ${quantity}`,
+                        icon: 'success',
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Error agregando el producto',
+                        icon: 'error',
+                    });
+                }
+            } catch (error) {
+                console.error('Error al agregar el producto al carrito:', error);
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Error agregando el producto',
+                    icon: 'error',
+                });
+            }
+        }
+    }
+</script>
