@@ -72,20 +72,38 @@ router.get('/:cid', async (req, res) => {
     }
 });
 
+// router.delete('/:cid/products/:pid', async (req, res) => {
+//     const { cid, pid } = req.params;
+//     try {
+//         const cart = await manager.deleteProductInCart(cid, pid);
+
+//         if (!cart) {
+//             return res.status(404).json({ message: 'Carrito no encontrado' });
+//         }
+
+//         res.status(200).json(cart);
+//     } catch (error) {
+//         res.status(500).json({ message: 'Error eliminando el producto del carrito', error });
+//     }
+// });
+
 router.delete('/:cid/products/:pid', async (req, res) => {
     const { cid, pid } = req.params;
+    console.log(`Eliminar producto ${pid} del carrito ${cid}`);
     try {
         const cart = await manager.deleteProductInCart(cid, pid);
 
         if (!cart) {
             return res.status(404).json({ message: 'Carrito no encontrado' });
         }
-
+console.log(`Producto ${pid} eliminado del carrito ${cid}`);
         res.status(200).json(cart);
     } catch (error) {
+        console.log(`Error eliminando el producto del carrito ${cid}: ${error.message}`);
         res.status(500).json({ message: 'Error eliminando el producto del carrito', error });
     }
 });
+
 
 router.put('/:cid/products/:pid', async (req, res) => {
     try {

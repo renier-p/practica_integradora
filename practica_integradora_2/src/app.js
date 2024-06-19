@@ -6,6 +6,7 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 import passport from "passport";
 import bodyParser from "body-parser";
+import dotenv from "dotenv"
 
 import productRoutes from "./routes/productRoutes.js";
 import cartRouter from "./routes/cartRoutes.js";
@@ -18,8 +19,11 @@ import connectToDB from "./config/configServer.js";
 import socketProducts from "./listener/socketProducts.js";
 import socketChat from "./listener/socketChat.js";
 
+dotenv.config()
+
 const app = express();
 const PORT = 8080;
+
 
 app.use(session({
     secret: 'secretkey',
@@ -49,7 +53,7 @@ app.use('/api/sessions', sessionsRouter);
 
 const httpServer = app.listen(PORT, () => {
     try {
-        console.log(`Listening to the port ${PORT}`);
+        console.log(`Server running in port: ${PORT}`);
     } catch (err) {
         console.log(err);
     }

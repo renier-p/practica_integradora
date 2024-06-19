@@ -50,23 +50,42 @@ export default class CartManager {
         }
     }
 
+    // deleteProductInCart = async (cid, pid) => {
+    //     try {
+    //         const cart = await CartModel.findById(cid);
+
+    //         if (!cart) {
+    //             return null;
+    //         }
+
+    //         cart.products = cart.products.filter(item => item.product.toString() !== pid);
+
+    //         await cart.save();
+    //         return cart;
+    //     } catch (err) {
+    //         console.error('Error eliiminando el producto del carrito:', err.message);
+    //         return null;
+    //     }
+    // }
+
     deleteProductInCart = async (cid, pid) => {
         try {
             const cart = await CartModel.findById(cid);
-
+    
             if (!cart) {
                 return null;
             }
-
+    
             cart.products = cart.products.filter(item => item.product.toString() !== pid);
-
+    
             await cart.save();
             return cart;
         } catch (err) {
-            console.error('Error eliiminando el producto del carrito:', err.message);
+            console.error('Error eliminando el producto del carrito:', err.message);
             return null;
         }
     }
+    
     updateCart = async (cartId, products) => {
         try {
             const cart = await CartModel.findByIdAndUpdate(cartId, { products }, { new: true });

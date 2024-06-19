@@ -29,7 +29,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{#each cart.products}}
+                            {{!-- {{#each cart.products}}
                             <tr style="color: white">
                                 <td>
                                     <a href="/products/{{product._id}}">
@@ -49,14 +49,35 @@
                                     <button style="background-color: #ff6600; color: white; padding: 10px 20px; border-radius: 6px; border: 1px solid #ff6600" type="button" class="btn" onclick="removeFromCart('{{../cart._id}}', '{{this.product._id}}')">Eliminar</button>
                                 </td>
                             </tr>
-                            {{/each}}
+                            {{/each}} --}}
+
+                            {{#each cart.products}}
+<tr style="color: white">
+    <td>
+        <a href="/products/{{product._id}}">
+            <img class="cartImage" src="{{this.product.thumbnail}}" alt="{{this.product.description}}">
+        </a>
+    </td>
+    <td>{{this.product.title}}</td>
+    <td>{{this.product.description}}</td>
+    <td>${{this.product.price}}</td>
+    <td>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <span class="mx-2">{{this.quantity}}</span>
+        </div>
+    </td>
+    <td>
+        <button style="background-color: #ff6600; color: white; padding: 10px 20px; border-radius: 6px; border: 1px solid #ff6600" type="button" class="btn" onclick="removeFromCart('{{../cart._id}}', '{{this.product._id}}')">Eliminar</button>
+    </td>
+</tr>
+{{/each}}
                         </tbody>
                     </table>
                 </div>
             </div>
             <div class="row">
                 <div class="col text-end">
-                    <a style="background-color: #ff6600; color: white; padding: 10px 20px; border-radius: 6px; border: 1px solid #ff6600" class="btn btn-info" href="/">Seguir Comprando...</a>
+                    <a style="background-color: #ff6600; color: white; padding: 10px 20px; border-radius: 6px; border: 1px solid #ff6600" class="btn btn-info" href="/">Seguir Comprando</a>
                 </div>
                 <div class="col text-end">
                     <button style="background-color: #ff6600; color: white; padding: 10px 20px; border-radius: 6px; border: 1px solid #ff6600" class="btn" onclick="emptyCart('{{cart._id}}')">Vaciar carrito</button>
@@ -65,9 +86,10 @@
         {{else}}
             <div class="col text-end">
                 <h2 class="text-center mt-4">No tienes productos en tu carrito </h2>
-                <a class="btn btn-info" href="/">Seguir Comprando...</a>
+                <a style="background-color: #ff6600; color: white; padding: 10px 20px; border-radius: 6px; border: 1px solid #ff6600" class="btn btn-info" href="/">Seguir Comprando</a>
             </div>
         {{/if}}
     </div> 
     <script src="/js/cart.js"></script>
+    <script src="/js/main.js"></script>
 </body>
